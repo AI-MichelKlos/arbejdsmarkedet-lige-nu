@@ -1,0 +1,52 @@
+name: Opdater arbejdsmarkedstal
+on:
+  schedule:
+    - cron: '35 10 * * 1-5'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**'
+      - 'package*.json'
+      - '.github/workflows/opdater-tal.yml'
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: opdater-arbejdsmarkedstal
+  cancel-in-progress: false
+jobs:
+  opdater:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci --ignore-scripts
+      - name: Hent alle 13 figurer fra de officielle kilder
+        run: python3 -u scripts/collect.py "$RUNNER_TEMP/arbejdsmarkedstal"
+      - name: Byg hele siden
+        run: node scripts/render.cjs index.html "$RUNNER_TEMP/arbejdsmarkedstal" "$RUNNER_TEMP/ny-side.html" && cp "$RUNNER_TEMP/ny-side.html" index.html
+      - name: Gem nye tal og revisioner
+        run: |
+          if ! git diff --quiet -- index.html; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Opdater figurer fra Jobindsats, Statistikbanken og Eurostat"
+            git push origin HEAD:main
+          fi
+      - name: Publicér det seneste datasæt på GitHub Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          # A push with GITHUB_TOKEN does not trigger branch-based Pages builds.
+          latest=$(gh api "repos/$GITHUB_REPOSITORY/pages/builds/latest" --jq 'if .status=="built" then .commit else "" end')
+          if [ "$latest" != "$(git rev-parse HEAD)" ]; then
+            gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds"
+          fi

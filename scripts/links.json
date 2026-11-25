@@ -1,0 +1,15 @@
+{
+  "ledighed": "https://jobindsats.dk/databank/arbejdsmarked/status-pa-arbejdsmarkedet/ledighed/ledighed-saesonkorrigeret-antal-fuldtidsledige/",
+  "dimittender": "https://jobindsats.dk/databank/ydelser/a-dagpenge/dimittendledige/antal-dimittendledige-personer/",
+  "langtidsledighed": "https://jobindsats.dk/databank/arbejdsmarked/status-pa-arbejdsmarkedet/ledighed/antal-langtidsledige-personer/",
+  "stillinger": "https://jobindsats.dk/databank/arbejdsmarked/status-pa-arbejdsmarkedet/virksomhedernes-behov-for-arbejdskraft/antal-ledige-stillinger-pa-jobnet/",
+  "udenlandske": "https://jobindsats.dk/databank/arbejdsmarked/udenlandsk-arbejdskraft/udenlandsk-arbejdskraft-i-danmark/udenlandske-statsborgere-med-lonindkomst-i-danmark-opholdsgrundlag-statsborgerskab-branche/",
+  "andel": "https://jobindsats.dk/databank/arbejdsmarked/status-pa-arbejdsmarkedet/beskaeftigelse-og-jobskifte/antal-lonmodtagere-efter-bopael/",
+  "seniorer": "https://jobindsats.dk/databank/arbejdsmarked/status-pa-arbejdsmarkedet/befolkningens-tilknytning-til-arbejdsmarkedet/arbejdsmarkedsstatus-for-seniorer/",
+  "varslinger": "https://jobindsats.dk/databank/arbejdsmarked/status-pa-arbejdsmarkedet/virksomhedernes-behov-for-arbejdskraft/antal-varslinger-om-afskedigelser/",
+  "job": "https://www.statistikbanken.dk/LBESK104",
+  "alder": "https://www.statistikbanken.dk/AUS07",
+  "priser": "https://www.statistikbanken.dk/PRIS01",
+  "brancher": "https://www.statistikbanken.dk/LBESK103",
+  "udland": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table?lang=en"
+}
